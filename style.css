@@ -325,48 +325,61 @@ button:hover {
     }
 
     main {
-        padding: 1rem;
-        gap: 1.5rem;
+        padding: 0.5rem; /* Reduced from 1rem to give more space */
+        gap: 1rem;
     }
 
     .chart-container {
-        gap: 6px;
-        aspect-ratio: auto; /* Allow height to adjust */
+        gap: 4px; /* Even smaller gap */
+        aspect-ratio: auto;
     }
 
     .palace {
-        padding: 0.5rem;
-        min-height: 100px;
+        padding: 4px; /* Very minimal padding */
+        min-height: 90px;
     }
 
     .palace-name {
-        font-size: 1.1rem;
-        bottom: 5px;
-        right: 5px;
+        font-size: 1rem;
+        bottom: 4px;
+        right: 4px;
+        letter-spacing: 0;
     }
 
     .star-tag {
-        font-size: 0.9rem;
-        padding: 2px 6px;
+        font-size: 0.85rem;
+        padding: 1px 4px;
         margin-bottom: 2px;
+        border-radius: 4px;
     }
 
     .center-area {
-        padding: 0.8rem;
-        border-width: 2px;
+        padding: 0.4rem;
+        border-width: 1.5px;
     }
 
     .center-area h2 {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
     }
 
     #centerText {
-        font-size: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.2;
     }
 
     .card {
-        padding: 1.2rem;
+        padding: 1rem;
+    }
+
+    .palace-stars {
+        gap: 3px;
+    }
+
+    .palace-name span {
+        display: inline !important; /* Make branch name inline with palace name on mobile */
+        margin-left: 4px;
+        font-size: 0.8rem !important;
     }
 
     .card h2 {
