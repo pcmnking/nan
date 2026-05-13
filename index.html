@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紫微斗數邏輯思維 | 深度解盤交互系統</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="animate-fade">
+        <h1>紫微斗數邏輯思維</h1>
+        <p class="subtitle">解鎖生命的心理動機與價值觀推演系統</p>
+    </header>
+
+    <main>
+        <section class="chart-section animate-fade" style="animation-delay: 0.2s;">
+            <div class="chart-container" id="ziweiChart">
+                <!-- Palace nodes will be injected by JS -->
+                <div class="center-area glass">
+                    <h2 style="color: var(--primary-color);">核心邏輯</h2>
+                    <p id="centerText">點擊宮位開始互動解讀</p>
+                    <div class="transformation-flow" id="transFlow">
+                        <!-- Flow will be injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls glass card animate-fade" style="animation-delay: 0.4s;">
+                <h2>互動控制台</h2>
+                <div class="btn-group" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button onclick="app.setMode('setLife')" title="設定命宮位置">📍 設定命宮</button>
+                    <button onclick="app.setMode('setZiwei')" title="設定紫微星位置">✨ 設定紫微</button>
+                    <button onclick="app.resetChart()">🔄 重置</button>
+                </div>
+                <div class="btn-group" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                    <button onclick="app.showPrinciples()">核心三大法則</button>
+                    <button onclick="app.showFourTrans()">四化因果鍊</button>
+                    <button onclick="app.copyAIParameters()" style="background: var(--secondary-color); color: white; border: none; font-weight: bold;">📋 複製 AI 分析參數</button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="info-panel animate-fade" style="animation-delay: 0.6s;">
+            <div id="interpretationCard" class="card glass">
+                <h2 id="palaceTitle">宮位詳解</h2>
+                <div id="palaceDescription" class="interpretation-content">
+                    <p>請點擊左側命盤中的宮位，以查看該宮位在「邏輯思維」體系下的深度象意。</p>
+                </div>
+                
+                <div id="logicalBox" class="logical-meaning" style="display: none;">
+                    <h3 style="color: var(--secondary-color); font-size: 1.1rem; margin-bottom: 0.5rem;">💡 邏輯思維：</h3>
+                    <p id="logicalText"></p>
+                </div>
+            </div>
+
+            <div class="card glass">
+                <h2>天賦尋找公式</h2>
+                <p style="font-size: 1.5rem;">天賦 = 命宮本質 + 四化聚焦點 + 煞星的應用</p>
+                <div style="margin-top: 1rem; color: var(--primary-color); font-weight: bold;">
+                    「沒有不好的盤，只有還沒找到位置的靈魂。」
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <section id="lectureContent" class="glass card animate-fade" style="margin: 3rem auto; max-width: 1600px; width: 95%;">
+        <h2 style="font-size: 3rem; color: var(--primary-color); text-align: center; margin-bottom: 2rem;">📘 紫微斗數邏輯思維：最新完整講義</h2>
+        <div class="interpretation-content" style="white-space: pre-wrap; font-family: inherit; font-size: 1.5rem; line-height: 1.8;">
+這是一份根據「**紫微斗數邏輯思維**」所整理的深度教學講義。本講義的核心在於將命盤視為一套「心理動機與價值觀的推演系統」，而非傳統的宿命論。
+
+---
+
+# 紫微斗數邏輯思維：核心架構與實務推演講義
+
+## 第一部分：核心理論與解盤法則
+
+### 1. 體用關係：命宮為唯一的「體」
+
+命盤中只有命宮是「你」，其餘十一宮皆是命宮的延伸。
+
+* **本質**：命宮就像「黃金原料」，其餘宮位是將黃金打造出的項鍊、耳環或金碗（即「用」）。
+* **法則**：絕對不能脫離命宮去解釋其他宮位。解盤必須回歸命宮的主觀價值，看命主「為什麼」會這樣運作。
+
+### 2. 嚴禁「借對宮」的邏輯限制
+
+除了**命宮與遷移宮**互為表裡、可以互參（因為那是內外形象的過濾器）之外，其餘宮位**嚴禁借對宮論斷**。
+
+* **理由**：每個宮位代表的是獨立的心理動機。借對宮會導致動機混淆。例如：事業宮代表社會標籤，夫妻宮代表共同承擔，兩者動機完全不同，不可混為一談。
+
+### 3. 吉煞星的重新定義：口味與工具
+
+* **吉星（左輔、右弼、文昌、文曲）**：代表「大眾口味」，性格溫和、穩定、緩慢，容易得到社會共識的認同。
+* **煞星（擎羊、陀羅、火星、鈴星）**：代表「特殊口味」，效率高、直接、刺激。
+* **比喻**：煞星就像「麻辣鍋」或「屠龍刀」。只要命主能駕馭，煞星就是最強的競爭優勢與突破力。
+
+---
+
+## 第二部分：十二宮位動機全解（以命宮為核心）
+
+當我們觀察各宮位時，其實是在看「命宮（我）」對該領域的「期待與運作邏輯」：
+
+1. **命宮（本體）**：我的核心價值觀、原始性格、看待世界的過濾器。
+2. **遷移宮（顯像）**：我面對陌生環境的反應，以及我希望在社會上呈現出的樣子。
+3. **父母宮（庇蔭）**：我期望能「罩著我」的人事物。包括主管、制度、貴人或能滿足我需求的人。
+4. **兄弟宮（夥伴）**：我對親近戰友、手足的期待。是你轉身時最直接的支撐。
+5. **夫妻宮（承擔）**：我渴望能與我共同分擔生命責任、達成人生願景的對象。
+6. **子女宮（傳承）**：我的行事謀略、技巧，以及我如何將理念擴散、教導給他人。
+7. **財帛宮（佔有）**：我對喜愛之物（物質或感情）的佔有慾、企圖心與取財態度。
+8. **事業宮（標籤）**：我如何展現自我價值，以獲得社會的認同與定位。
+9. **田宅宮（實力）**：我在所處環境（家庭、公司）中所擁有的實質影響力與安全感。
+10. **交友宮（護持）**：我對陪伴者的期待，那些能接受我理念並協助執行、護持我的人。
+11. **福德宮（底線）**：我的精神避風港、潛意識偏好，以及內心深處最擔心的隱憂。
+12. **疾厄宮（載體）**：我的情緒深處、身體特質，以及最直覺的感官反應。
+
+---
+
+## 第三部分：四化星的「互相成就」——因果循環
+
+生年四化是命盤的靈魂，它們彼此存在著緊密的動力鍊條：
+
+* **化祿（緣起）**：因為「感興趣、想表現、想追求」。這是一個開端。
+* **化權（實踐）**：為了達成祿的目標，所以「去掌控、去專業化、強勢執行」。
+* **化科（優化）**：在執行的過程中「要求完美、提升質感、修飾形象」。
+* **化忌（執取）**：最終「堅持原則、非他不可」。忌是結果，也是這輩子最在意的執著點。
+
+**因果關係**：沒有「祿」的想望，就沒有「權」的行動；沒有「忌」的終點執著，「權」與「科」的過程就沒有意義。四化共同成就了命主的生命動力。
+
+---
+
+## 第四部分：深度問題推演邏輯
+
+### 1. 如何看我的優勢與天賦？
+
+* **公式**：命宮本質 + 四化聚焦點 + 煞星的應用。
+* 觀察生年「化權」與「化忌」落點。化權是你「最擅長掌控」的技術，化忌是你「最有堅持、反覆磨練」的領域。當你願意在忌的宮位投入權的掌控，那就是你的無可取代的天賦。
+
+### 2. 各宮位的期望特徵：
+
+* **父母宮（期望的庇蔭來源）**：若帶化科或文昌，你期待主管是有涵養、有名望、能教導你知識的貴人。
+* **兄弟宮（親近夥伴）**：若帶煞星（如擎羊），你期待夥伴能直接了當、解決問題不拖泥帶水，而非溫吞。
+* **夫妻宮（傾向尋找的共同承擔者）**：若星曜強大（如紫微），你期望伴侶是能獨當一面、讓你尊敬且能共同扛起家業的人。
+* **財帛宮（取財態度）**：若帶化祿與左輔右弼，代表你傾向透過多方資源整合、廣結善緣的方式獲取財富。
+* **交友宮（對陪伴者的期待）**：若帶化權，你希望你的支持者或團隊成員是具備實力、能獨自作業且聽命於你的專業人士。
+* **事業宮（獲取認同的方式）**：若帶文曲或化科，你傾向透過展現才華、知識或專業形象來獲取社會標籤。
+* **福德宮（精神隱憂與建議）**：這是你的壓力閥。若帶化忌，代表你對未來有過度未雨綢繆的傾向。建議學習「借盤修行」，理解憂慮源於過度的執取，而非環境本身。
+
+---
+
+## 第五部分：各星曜邏輯象意整理
+
+### 1. 十四主星核心邏輯
+
+| 星曜 | 邏輯象意 |
+| --- | --- |
+| **紫微** | 自尊心、希望被尊重、追求高度與格局。 |
+| **天機** | 邏輯思考、善於企劃、變動性、神經敏銳。 |
+| **太陽** | 擴散性、主動付出、愛面子、關注公眾利益。 |
+| **武曲** | 剛直、執行力、實事求是、對物質敏感。 |
+| **天同** | 追求和諧、感性、避苦求樂、情緒化。 |
+| **廉貞** | 規矩與囚縛、精密的觀察、自我要求高。 |
+| **天府** | 穩定、收藏、防禦、厚實的累積。 |
+| **太陰** | 收斂、細膩、富想像力、注重內在安全感。 |
+| **貪狼** | 慾望的探求、學習力強、多才多藝、社交性。 |
+| **巨門** | 質疑與研究、深耕、口才、防衛心強。 |
+| **天相** | 平衡、服務、注重形象、需要平台。 |
+| **天梁** | 庇蔭、老成、固執、具備指導性。 |
+| **七殺** | 肅殺、直接、獨來獨往、目標導向。 |
+| **破軍** | 損耗與創新、敢於冒險、挑戰舊體制。 |
+
+### 2. 六吉星（大眾口味/輔助力量）
+
+* **左輔、右弼**：代表「額外的助力」。左輔是明助（如實質資源），右弼是暗助（如心理支持）。代表命主傾向尋找更多的協助，性格較寬厚。
+* **文昌、文曲**：代表「水準與修飾」。文昌偏重邏輯與證書，文曲偏重感性與才藝。代表命主在意行為的質感與外在的表現。
+
+### 3. 四煞星（特殊口味/極速效率）
+
+* **擎羊**：直接的傷害或突破，像手術刀，精準且痛。
+* **陀羅**：隱形的磨練、原地打轉、糾結、慢工出細活。
+* **火星**：爆發力、瞬間的能量、脾氣急躁。
+* **鈴星**：持續的壓力、內斂的火氣、精明與算計。
+
+---
+
+**結語：**
+這份講義的目的是引導學生理解：命盤上的每一顆星、每一個宮位，都是為了成就「我」的生命藍圖。沒有好壞，只有你有沒有活出那個宮位的邏輯。
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 4rem; color: var(--text-dim); font-size: 1.2rem;">
+        &copy; 2026 紫微斗數邏輯思維教學系統 | 基於最新講義內容更新
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
