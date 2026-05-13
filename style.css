@@ -18,14 +18,12 @@
 
 body {
     background-color: var(--bg-dark);
+    background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0c 100%);
     color: var(--text-main);
     line-height: 1.5;
     overflow-x: hidden;
-    background-image: url('ziwei_abstract_bg_1778673121624.png');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    font-size: 1.2rem; /* Adjusted base */
+    font-size: 1.2rem;
+    min-height: 100vh;
 }
 
 /* Glassmorphism Effect */
