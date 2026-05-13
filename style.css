@@ -60,11 +60,11 @@ main {
     margin: 0 auto;
     padding: 2rem;
     display: grid;
-    grid-template-columns: 1fr 500px; 
+    grid-template-columns: 1fr 400px; 
     gap: 2rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     main {
         grid-template-columns: 1fr;
     }
@@ -240,10 +240,11 @@ button:hover {
 .transformation-flow {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-top: 1.5rem;
-    padding: 1rem;
-    overflow-x: auto;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .flow-step {
@@ -267,6 +268,169 @@ button:hover {
 
 .animate-fade {
     animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Lecture Section */
+.lecture-section {
+    margin: 3rem auto;
+    max-width: 1600px;
+    width: 95%;
+}
+
+.lecture-title {
+    font-size: 3rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.lecture-body {
+    white-space: pre-wrap;
+    font-family: inherit;
+    font-size: 1.5rem;
+    line-height: 1.8;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .lecture-section {
+        margin: 2rem auto;
+        width: 98%;
+    }
+
+    .lecture-title {
+        font-size: 1.8rem;
+    }
+
+    .lecture-body {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+    
+    body {
+        font-size: 1rem;
+    }
+
+    header {
+        padding: 2rem 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    main {
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .chart-container {
+        gap: 6px;
+        aspect-ratio: auto; /* Allow height to adjust */
+    }
+
+    .palace {
+        padding: 0.5rem;
+        min-height: 100px;
+    }
+
+    .palace-name {
+        font-size: 1.1rem;
+        bottom: 5px;
+        right: 5px;
+    }
+
+    .star-tag {
+        font-size: 0.9rem;
+        padding: 2px 6px;
+        margin-bottom: 2px;
+    }
+
+    .center-area {
+        padding: 0.8rem;
+        border-width: 2px;
+    }
+
+    .center-area h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    #centerText {
+        font-size: 1rem;
+    }
+
+    .card {
+        padding: 1.2rem;
+    }
+
+    .card h2 {
+        font-size: 1.6rem;
+    }
+
+    .interpretation-content {
+        font-size: 1.2rem;
+    }
+
+    .logical-meaning h3 {
+        font-size: 1.3rem;
+    }
+
+    #logicalText {
+        font-size: 1.1rem;
+    }
+
+    button {
+        padding: 0.8rem 1.2rem;
+        font-size: 1.1rem;
+    }
+
+    #lectureContent h2 {
+        font-size: 1.8rem;
+    }
+
+    #lectureContent .interpretation-content {
+        font-size: 1.1rem;
+    }
+
+    footer {
+        padding: 2rem;
+        font-size: 1rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .chart-container {
+        gap: 4px;
+    }
+
+    .palace {
+        padding: 0.4rem;
+        min-height: 80px;
+    }
+
+    .palace-name {
+        font-size: 0.9rem;
+    }
+
+    .star-tag {
+        font-size: 0.8rem;
+        padding: 2px 4px;
+    }
+    
+    .center-area h2 {
+        font-size: 1rem;
+    }
+    
+    #centerText {
+        font-size: 0.85rem;
+    }
 }
 
 footer {
