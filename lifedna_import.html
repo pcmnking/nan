@@ -170,6 +170,45 @@
                 }
             }
 
+            // birth (生年天干): 取 u_data_u 第一個字元
+            const uDataU = doc.querySelector('.u_data_u');
+            if (uDataU) {
+                result.birth = uDataU.textContent.trim().charAt(0);
+            }
+
+            // Helper: 在所有 td.outer 中找含有指定文字的 span[id^='st'] 所在宮格
+            function findStarBranch(starText) {
+                for (const outer of doc.querySelectorAll('td.outer')) {
+                    if (!outer.id || !/^td\d+$/.test(outer.id)) continue;
+                    for (const span of outer.querySelectorAll('span[id^="st"]')) {
+                        if (span.textContent.includes(starText)) {
+                            return lifedna_branchMap[parseInt(outer.id.replace('td',''), 10)];
+                        }
+                    }
+                }
+                return null;
+            }
+
+            // Helper: 找含有指定文字的 td（大命/流命）所在 td.outer
+            function findLabelBranch(label) {
+                for (const outer of doc.querySelectorAll('td.outer')) {
+                    if (!outer.id || !/^td\d+$/.test(outer.id)) continue;
+                    for (const td of outer.querySelectorAll('td')) {
+                        if (td.textContent.trim() === label) {
+                            return lifedna_branchMap[parseInt(outer.id.replace('td',''), 10)];
+                        }
+                    }
+                }
+                return null;
+            }
+
+            result.wenqu    = findStarBranch('文曲');
+            result.wenchang = findStarBranch('文昌');
+            result.zuofu    = findStarBranch('左輔');
+            result.youbi    = findStarBranch('右弼');
+            result.dayun    = findLabelBranch('大命');
+            result.liunian  = findLabelBranch('流命');
+
             return result;
         }
 
