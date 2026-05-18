@@ -104,70 +104,52 @@
     </main>
 
     <script>
-        const branchMap = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+        // LifeDNA td index -> 地支 對照表 (td0=子, td1=丑, ... td11=亥)
+        // LifeDNA 的 td0-td11 就是地支順序: 子丑寅卯辰巳午未申酉戌亥
+        const lifedna_branchMap = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
 
         function extractData(doc) {
             let result = {};
 
-            // 1. birth (生年天干) & gender (性別)
-            const uData = doc.querySelector('.u_data_u');
-            if (uData) {
-                const text = uData.textContent.trim();
-                result.birth = text.charAt(0);
-                if (text.includes('男')) result.gender = '1';
-                else if (text.includes('女')) result.gender = '0';
-            }
-
-            // 解析西元生日 (針對 YourPower)
-            // 由於 Proxy 可能導致中文亂碼或格式變化，直接尋找 yyyy-mm-dd hh:mm 或 yyyy/mm/dd hh:mm
+            // 解析西元生日
             const bodyText = doc.body.textContent;
             const dateMatch = bodyText.match(/(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})\s+(\d{1,2}):(\d{1,2})/);
             if (dateMatch) {
-                const yyyy = dateMatch[1];
-                const mm = dateMatch[2].padStart(2, '0');
-                const dd = dateMatch[3].padStart(2, '0');
-                const hh = dateMatch[4].padStart(2, '0');
-                const min = dateMatch[5].padStart(2, '0');
-                result.birthDate = `${yyyy}-${mm}-${dd}`;
-                result.birthTime = `${hh}:${min}`;
+                result.birthDate = `${dateMatch[1]}-${dateMatch[2].padStart(2,'0')}-${dateMatch[3].padStart(2,'0')}`;
+                result.birthTime = `${dateMatch[4].padStart(2,'0')}:${dateMatch[5].padStart(2,'0')}`;
             }
 
-            // 2. yin (寅宮天干)
+            // 解析性別
+            const uData = doc.querySelector('.u_data_u');
+            if (uData) {
+                const t = uData.textContent;
+                if (t.includes('男')) result.gender = '1';
+                else if (t.includes('女')) result.gender = '0';
+            }
+
+            const html = doc.documentElement.innerHTML;
+
+            // LifeDNA 的 chc(ziwei, _, ming, ...) 函數中:
+            // 第1個參數 = 紫微星所在的 td index
+            // 第3個參數 = 命宮所在的 td index
+            // 所有宮格的 chc() 呼叫完全相同，取任一個即可
+            const chcMatch = html.match(/onMouseOver="chc\('(\d+)','(\d+)','(\d+)'/);
+            if (chcMatch) {
+                const zIdx = parseInt(chcMatch[1], 10);
+                const mIdx = parseInt(chcMatch[3], 10);
+                result.ziwei = lifedna_branchMap[zIdx];
+                result.ming  = lifedna_branchMap[mIdx];
+            }
+
+            // yin (寅宮天干)
             const td2 = doc.getElementById('td2');
             if (td2) {
                 const upTds = td2.querySelectorAll('td.up');
                 for (let td of upTds) {
                     const text = td.textContent.trim();
-                    if (text.length === 2 && text.charAt(1) === '寅') {
-                        result.yin = text.charAt(0);
-                        break;
-                    }
+                    if (text.length === 2) { result.yin = text.charAt(0); break; }
                 }
             }
-
-            // Helper to find branch location
-            function findBranch(selector, matchFn) {
-                const elements = doc.querySelectorAll(selector);
-                for (let el of elements) {
-                    if (matchFn(el.textContent.trim())) {
-                        const outer = el.closest('td.outer');
-                        if (outer && outer.id && outer.id.startsWith('td')) {
-                            const idx = parseInt(outer.id.replace('td', ''), 10);
-                            return branchMap[idx];
-                        }
-                    }
-                }
-                return null;
-            }
-
-            result.ming = findBranch('td.a0', text => text === '命');
-            result.ziwei = findBranch("span[id^='st']", text => text.startsWith('紫微'));
-            result.wenqu = findBranch("span[id^='st']", text => text.startsWith('文曲'));
-            result.wenchang = findBranch("span[id^='st']", text => text.startsWith('文昌'));
-            result.zuofu = findBranch("span[id^='st']", text => text.startsWith('左輔'));
-            result.youbi = findBranch("span[id^='st']", text => text.startsWith('右弼'));
-            result.dayun = findBranch("td", text => text === '大命');
-            result.liunian = findBranch("td", text => text === '流命');
 
             return result;
         }
