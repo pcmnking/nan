@@ -85,9 +85,10 @@
             
             <input type="url" id="lifedna_url" placeholder="https://www.lifedna.com.tw/t/map/f/result.php?s=..." required>
             
-            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                <button id="importBtn1" class="btn-large" onclick="handleImport('fstarpro')">匯入至 FStarPro</button>
-                <button id="importBtn2" class="btn-large" onclick="handleImport('yourpower')" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">匯入至 YourPower</button>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
+                <button id="importBtn1" class="btn-large" onclick="handleImport('fstarpro')" style="flex: 1; min-width: 150px;">匯入至 FStarPro</button>
+                <button id="importBtn2" class="btn-large" onclick="handleImport('yourpower')" style="background: linear-gradient(135deg, #10b981, #059669); color: white; flex: 1; min-width: 150px;">匯入至 YourPower</button>
+                <button id="importBtn3" class="btn-large" onclick="handleImport('nan')" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; flex: 1; min-width: 150px;">匯入至 邏輯思維</button>
             </div>
             
             <div id="status"></div>
@@ -175,6 +176,7 @@
             const urlInput = document.getElementById("lifedna_url").value.trim();
             const btn1 = document.getElementById("importBtn1");
             const btn2 = document.getElementById("importBtn2");
+            const btn3 = document.getElementById("importBtn3");
             const status = document.getElementById("status");
             const resultBox = document.getElementById("resultBox");
             const resultData = document.getElementById("resultData");
@@ -188,6 +190,7 @@
             try {
                 btn1.disabled = true;
                 btn2.disabled = true;
+                btn3.disabled = true;
                 status.textContent = "🔄 正在透過 Proxy 抓取資料，請稍候...";
                 resultBox.style.display = "none";
 
@@ -230,9 +233,12 @@
 
                 // 組合跳轉網址
                 const params = new URLSearchParams(validData);
-                const baseUrl = targetSystem === 'yourpower' 
-                    ? "https://pcmnking.github.io/yourpower/" 
-                    : "https://pcmnking.github.io/fstarpro/";
+                let baseUrl = "https://pcmnking.github.io/fstarpro/";
+                if (targetSystem === 'yourpower') {
+                    baseUrl = "https://pcmnking.github.io/yourpower/";
+                } else if (targetSystem === 'nan') {
+                    baseUrl = "https://pcmnking.github.io/nan/";
+                }
                 const targetUrl = baseUrl + "?" + params.toString();
                 
                 redirectLink.href = targetUrl;
@@ -247,6 +253,7 @@
             } finally {
                 btn1.disabled = false;
                 btn2.disabled = false;
+                btn3.disabled = false;
             }
         }
     </script>

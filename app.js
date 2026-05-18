@@ -55,6 +55,19 @@ class ZiweiApp {
     }
 
     init() {
+        // Parse URL query parameters to auto-fill ming and ziwei
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('ming')) {
+            const mingBranch = params.get('ming');
+            const idx = data.branches.indexOf(mingBranch);
+            if (idx !== -1) this.lifePalacePos = idx;
+        }
+        if (params.has('ziwei')) {
+            const ziweiBranch = params.get('ziwei');
+            const idx = data.branches.indexOf(ziweiBranch);
+            if (idx !== -1) this.ziweiPos = idx;
+        }
+
         this.renderChart();
     }
 
