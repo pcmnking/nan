@@ -129,16 +129,25 @@
 
             const html = doc.documentElement.innerHTML;
 
-            // LifeDNA 的 chc(ziwei, _, ming, ...) 函數中:
-            // 第1個參數 = 紫微星所在的 td index
-            // 第3個參數 = 命宮所在的 td index
-            // 所有宮格的 chc() 呼叫完全相同，取任一個即可
-            const chcMatch = html.match(/onMouseOver="chc\('(\d+)','(\d+)','(\d+)'/);
-            if (chcMatch) {
-                const zIdx = parseInt(chcMatch[1], 10);
-                const mIdx = parseInt(chcMatch[3], 10);
-                result.ziwei = lifedna_branchMap[zIdx];
-                result.ming  = lifedna_branchMap[mIdx];
+            // 命宮: 找到含有 class="a1" 的元素，向前找最近的 id="tdN"
+            const a1Match = html.match(/id="(td\d+)"[\s\S]{0,600}?class="a1"/);
+            if (a1Match) {
+                const idx = parseInt(a1Match[1].replace('td', ''), 10);
+                result.ming = lifedna_branchMap[idx];
+            }
+
+            // 紫微星: 找 id="st0" 前面最近的 id="tdN"
+            // LifeDNA 固定把紫微放在 star18 index=0，對應 span id="st0"
+            const st0Pos = html.indexOf('id=\'st0\'');
+            if (st0Pos > -1) {
+                // 在 st0 之前找最後一個 id="tdN"
+                const before = html.substring(0, st0Pos);
+                const tdMatches = [...before.matchAll(/id="(td\d+)"/g)];
+                if (tdMatches.length > 0) {
+                    const lastTd = tdMatches[tdMatches.length - 1];
+                    const idx = parseInt(lastTd[1].replace('td', ''), 10);
+                    result.ziwei = lifedna_branchMap[idx];
+                }
             }
 
             // yin (寅宮天干)
