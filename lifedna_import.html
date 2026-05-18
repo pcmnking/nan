@@ -284,8 +284,8 @@
                 redirectLink.href = targetUrl;
                 redirectLink.textContent = targetUrl;
 
-                // 自動跳轉
-                window.location.href = targetUrl;
+                // 另開新頁跳轉
+                window.open(targetUrl, '_blank');
 
             } catch (err) {
                 console.error(err);
