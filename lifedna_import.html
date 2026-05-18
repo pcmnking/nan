@@ -127,26 +127,30 @@
                 else if (t.includes('女')) result.gender = '0';
             }
 
-            const html = doc.documentElement.innerHTML;
-
-            // 命宮: 找到含有 class="a1" 的元素，向前找最近的 id="tdN"
-            const a1Match = html.match(/id="(td\d+)"[\s\S]{0,600}?class="a1"/);
-            if (a1Match) {
-                const idx = parseInt(a1Match[1].replace('td', ''), 10);
-                result.ming = lifedna_branchMap[idx];
+            // 命宮: 用 DOM 爬升找到 class="a1" 所在的 td.outer
+            const a1El = doc.querySelector('.a1');
+            if (a1El) {
+                let p = a1El;
+                while (p) {
+                    if (p.id && /^td\d+$/.test(p.id)) {
+                        result.ming = lifedna_branchMap[parseInt(p.id.replace('td', ''), 10)];
+                        break;
+                    }
+                    p = p.parentElement;
+                }
             }
 
-            // 紫微星: 找 id="st0" 前面最近的 id="tdN"
-            // LifeDNA 固定把紫微放在 star18 index=0，對應 span id="st0"
-            const st0Pos = html.indexOf('id=\'st0\'');
-            if (st0Pos > -1) {
-                // 在 st0 之前找最後一個 id="tdN"
-                const before = html.substring(0, st0Pos);
-                const tdMatches = [...before.matchAll(/id="(td\d+)"/g)];
-                if (tdMatches.length > 0) {
-                    const lastTd = tdMatches[tdMatches.length - 1];
-                    const idx = parseInt(lastTd[1].replace('td', ''), 10);
-                    result.ziwei = lifedna_branchMap[idx];
+            // 紫微星: 用 DOM 爬升找到 id="st0" 所在的 td.outer
+            // LifeDNA 固定把紫微放在 star18[0]，對應 span id="st0"
+            const st0El = doc.getElementById('st0');
+            if (st0El) {
+                let p = st0El;
+                while (p) {
+                    if (p.id && /^td\d+$/.test(p.id)) {
+                        result.ziwei = lifedna_branchMap[parseInt(p.id.replace('td', ''), 10)];
+                        break;
+                    }
+                    p = p.parentElement;
                 }
             }
 
