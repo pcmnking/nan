@@ -127,18 +127,24 @@
                 else if (t.includes('女')) result.gender = '0';
             }
 
-            // 命宮: 用 DOM 爬升找到 class="a1" 所在的 td.outer
-            const a1El = doc.querySelector('.a1');
-            if (a1El) {
-                let p = a1El;
-                while (p) {
-                    if (p.id && /^td\d+$/.test(p.id)) {
-                        result.ming = lifedna_branchMap[parseInt(p.id.replace('td', ''), 10)];
+            // 命宮: class="a0" 中文字為「命」的那格才是本命命宮
+            // 注意: class="a1" 是大運命宮(會移動)，不是本命命宮
+            // 因為 Proxy 可能有亂碼，改用 DOM 查詢所有 td.outer，
+            // 找其中含有 class="a0" 且包含字元「命」的元素
+            let mingFound = false;
+            doc.querySelectorAll('td.outer').forEach(outerTd => {
+                if (mingFound) return;
+                const a0s = outerTd.querySelectorAll('td.a0');
+                for (const a0 of a0s) {
+                    if (a0.textContent.trim() === '\u547d') {  // 「命」
+                        if (outerTd.id && /^td\d+$/.test(outerTd.id)) {
+                            result.ming = lifedna_branchMap[parseInt(outerTd.id.replace('td', ''), 10)];
+                            mingFound = true;
+                        }
                         break;
                     }
-                    p = p.parentElement;
                 }
-            }
+            });
 
             // 紫微星: 用 DOM 爬升找到 id="st0" 所在的 td.outer
             // LifeDNA 固定把紫微放在 star18[0]，對應 span id="st0"
